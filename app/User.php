@@ -46,6 +46,10 @@ class User extends Authenticatable
 	{
 		return $this->hasMany('App\Course');
 	}
+	public function roles()
+	{
+		return $this->hasMany('App\Role');
+	}
 	public static function boot()
 	{
 		parent::boot();

@@ -28,7 +28,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					
+					@php ($n = 1)
+					@foreach ($teachers as $teacher)
+						<tr>
+							<td>{{$n}}</td>
+							<td>{{$teacher->name}}</td>
+							<td>{{$teacher->email}}</td>
+							<td><a href="{{url('remove_teacher/'.$teacher->id.'')}}" class="btn btn-danger" role="button" >{{__('teacher_ta_setting.removeteacher')}}</a></td>
+						</tr>
+						@php ($n++)
+					@endforeach
 				</tbody>
 				<tfoot>
 				{!! Form::open( ['url' =>'teacher_ta_setting_new_teacher']) !!}
@@ -54,6 +63,16 @@
 					</tr>
 				</thead>
 				<tbody>
+					@php ($n = 1)
+					@foreach($tas as $ta)
+						<tr>
+							<td>{{$n}}</td>
+							<td>{{$ta->name}}</td>
+							<td>{{$ta->email}}</td>
+							<td><a href="{{url('remove_ta/'.$ta->id.'')}}" class="btn btn-danger" role="button" >{{__('teacher_ta_setting.removeta')}}</a></td>
+						</tr>
+						@php ($n++)
+					@endforeach
 				</tbody>
 				<tfoot>
 				{!! Form::open( ['url' => 'teacher_ta_setting_new_ta']) !!}
@@ -77,19 +96,45 @@
                                                 <th scope="col">{{__('teacher_ta_setting.connectteacheraccount')}}</th>
 						<th scope="col">{{__('teacher_ta_setting.connecttaname')}}</th>
                                                 <th scope="col">{{__('teacher_ta_setting.connecttaaccount')}}</th>
-                                                <th scope="col">{{__('teacher_ta_setting.tafunction')}}</th>
+                                                <th scope="col">{{__('teacher_ta_setting.connectfunction')}}</th>
                                         </tr>
 				</thead>
                                 <tbody>
+					@php ($n = 1)
+					@foreach ($connects_result as $r)
+						<tr>
+							<td>{{$n}}</td>
+							<td>{{ $r->teacher->name }}</td>
+							<td>{{ $r->teacher->email }}</td>
+							<td>{{ $r->ta->name }} </td>
+							<td>{{ $r->ta->email }}</td>
+							<td><a href="{{url('remove_connect/'.$r->connect_id.'')}}" class="btn btn-danger" role="button" >{{__('teacher_ta_setting.removeconnect')}}</a></td>
+						</tr>
+						@php($n++)
+					@endforeach
                                 </tbody>
                                 <tfoot>
                                 {!! Form::open( ['url' => 'teacher_ta_setting_new_connect']) !!}
                                         <tr>
                                                 <th scope="rol">*</th>
-                                                <td></td>
-						<td><input class="form-control" type="text" id="newteacheraccount" name="newteacheraccount" placeholder="{{__('teacher_ta_setting.newteacheraccountplaceholder')}}"></td>
+						<td>
+							<select class="form-control" id="newteacherconnect" name="newteacherconnectid" required>
+								<option value="" disabled selected>{{__('teacher_ta_setting.newteacherconnectdefaultoption')}}</option>
+								@foreach ($teachers as $teacher)
+									<option value="{{$teacher->id}}">{{$teacher->name}}</option>
+								@endforeach
+							</select>
+						</td>
 						<td></td>
-                                                <td><input class="form-control" type="text" id="newtaaccount" name="newtaaccount" placeholder="{{__('teacher_ta_setting.newtaaccountplaceholder')}}"></td>
+                                                <td>
+                                                        <select class="form-control" id="newtaconnect" name="newtaconnectid" required>
+                                                                <option value="" disabled selected>{{__('teacher_ta_setting.newtaconnectdefaultoption')}}</option>
+                                                                @foreach ($tas as $ta)
+                                                                        <option value="{{$ta->id}}">{{$ta->name}}</option>
+								@endforeach
+                                                        </select>
+                                                </td>
+						<td></td>
                                                 <td><button type="submit" class="btn btn-light">{{__('teacher_ta_setting.newconnectsubmit')}}</button></td>
                                         </tr>
                                 {!! Form::close() !!}

@@ -19,7 +19,15 @@ Route::group(['middleware' => 'auth'],function(){
 	Route::post('/manageSubject','PageController@newCourse');
 	Route::get('/profile','PageController@profile');
 	Route::post('/profile','PageController@profile_update');
+
+
 	Route::get('/teacher_ta_setting','PageController@teacher_ta_setting');
+	Route::post('/teacher_ta_setting_new_teacher','PageController@teacher_ta_setting_new_teacher');
+	Route::post('/teacher_ta_setting_new_ta','PageController@teacher_ta_setting_new_ta');
+	Route::post('/teacher_ta_setting_new_connect','PageController@teacher_ta_setting_new_connect');
+	Route::get('/remove_teacher/{id}','PageController@teacher_ta_setting_remove_teacher');
+	Route::get('/remove_ta/{id}','PageController@teacher_ta_setting_remove_ta');
+	Route::get('/remove_connect/{id}','PageController@teacher_ta_setting_remove_connect');
 });
 
 
